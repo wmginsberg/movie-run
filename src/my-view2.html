@@ -109,7 +109,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
       },
       makeRun: function() {
-        
+        var id = this.makeRandomId();
+        console.log(id);
+      },
+      makeRandomId: function() {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for( var i=0; i < 20; i++ )
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
       }
     });
   </script>
