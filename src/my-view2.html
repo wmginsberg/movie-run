@@ -1,0 +1,116 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="sub-card-a.html">
+<link rel="import" href="sub-card-b.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="my-view2">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      .pink {
+        color: hotpink;
+        font-weight: 700;
+      }
+      .cyan {
+        color: cyan;
+        font-weight: 700;
+      }
+      #panel { 
+        width: 400px; 
+      }
+      #leftdiv { 
+        width: 155px;
+        float: left; 
+      }
+      #rightdiv { 
+        width: 155px; 
+        float: left; 
+        margin-left: 5px;
+      }
+      .clear { 
+        clear: both; 
+      }
+      paper-input {
+        margin-left: 10px;
+      }
+
+      paper-button {
+        background-color: white;
+        color: black;
+        font-weight: 700;
+      }
+
+      #mainpanel {
+        width: 95%;
+        position: block;
+      }
+
+      #mainleftdiv {
+        min-width: 400px;
+        float: left;
+      }
+
+      #mainrightdiv {
+        min-width: 300px;
+        float: left;
+        margin-left: 5px;
+        padding-right: 10px;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+
+    <div id="mainpanel">
+      <div id="mainleftdiv">
+        <div id="panel">
+
+          <a href="/view1"><paper-button on-tap="makeRun" raised> MAKE A RUN </paper-button></a>
+          
+        </div>
+        <br class="clear">
+      </div>
+      <div id="mainrightdiv">
+        <h1> How to use </h1>
+        <ul>
+          <li> Each player submits 3 options in the input boxes below </li>
+          <li> The button text will populate with your inputs </li>
+          <li> Player <span class="pink">A</span> eliminates one of Player <span class="cyan">B</span>'s options by tapping the button </li>
+          <li> Player <span class="cyan">B</span> eliminates one of Player <span class="pink">A</span>'s options by tapping the button </li>
+          <li> Player <span class="pink">A</span> eliminates one of their own options by tapping the button </li>
+          <li> Player <span class="cyan">B</span> eliminates one of their own options by tapping the button </li>
+          <li> Player <span class="pink">A</span> and <span class="cyan">B</span> decide between the last two options together </li>
+        </ul>
+      </div>
+      <br class="clear">
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view2',
+      properties: {
+  
+      },
+      makeRun: function() {
+        
+      }
+    });
+  </script>
+</dom-module>
