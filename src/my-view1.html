@@ -1,0 +1,106 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="sub-card-a.html">
+<link rel="import" href="sub-card-b.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      #panel { 
+        width: 400px; 
+      }
+      #leftdiv { 
+        width: 155px;
+        float: left; 
+      }
+      #rightdiv { 
+        width: 155px; 
+        float: left; 
+        margin-left: 5px;
+      }
+      .clear { 
+        clear: both; 
+      }
+      paper-input {
+        margin-left: 10px;
+      }
+    </style>
+
+    <div id="panel">
+
+      <div id="leftdiv">
+        <sub-card-a title="[[title_aa]]"></sub-card-a>
+        <sub-card-a title="[[title_ab]]"></sub-card-a>
+        <sub-card-a title="[[title_ac]]"></sub-card-a>
+        <paper-input label="submission 1" value="{{title_aa}}"></paper-input>
+        <paper-input label="submission 2" value="{{title_ab}}"></paper-input>
+        <paper-input label="submission 3" value="{{title_ac}}"></paper-input>
+      </div>
+
+      <div id="rightdiv">
+        <sub-card-b title="[[title_ba]]"></sub-card-b>
+        <sub-card-b title="[[title_bb]]"></sub-card-b>
+        <sub-card-b title="[[title_bc]]"></sub-card-b>
+        <paper-input label="submission 1" value="{{title_ba}}"></paper-input>
+        <paper-input label="submission 2" value="{{title_bb}}"></paper-input>
+        <paper-input label="submission 3" value="{{title_bc}}"></paper-input>
+      </div>
+
+    </div>
+    <br class="clear">
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view1',
+      properties: {
+        title_aa: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        },
+        title_ab: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        },
+        title_ac: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        },
+        title_ba: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        },
+        title_bb: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        },
+        title_bc: {
+          type: String,
+          notify: true,
+          value: "E.T."
+        }
+      }
+    });
+  </script>
+</dom-module>
