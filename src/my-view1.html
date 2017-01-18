@@ -21,6 +21,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 10px;
       }
+      .pink {
+        color: hotpink;
+        font-weight: 700;
+      }
+      .cyan {
+        color: cyan;
+        font-weight: 700;
+      }
       #panel { 
         width: 400px; 
       }
@@ -39,30 +47,64 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-input {
         margin-left: 10px;
       }
+
+      #mainpanel {
+        width: 95%;
+        position: block;
+      }
+
+      #mainleftdiv {
+        min-width: 400px;
+        float: left;
+      }
+
+      #mainrightdiv {
+        min-width: 300px;
+        float: left;
+        margin-left: 5px;
+        padding-right: 10px;
+      }
+
     </style>
 
-    <div id="panel">
+    <div id="mainpanel">
+      <div id="mainleftdiv">
+        <div id="panel">
 
-      <div id="leftdiv">
-        <sub-card-a title="[[title_aa]]"></sub-card-a>
-        <sub-card-a title="[[title_ab]]"></sub-card-a>
-        <sub-card-a title="[[title_ac]]"></sub-card-a>
-        <paper-input label="submission 1" value="{{title_aa}}"></paper-input>
-        <paper-input label="submission 2" value="{{title_ab}}"></paper-input>
-        <paper-input label="submission 3" value="{{title_ac}}"></paper-input>
+          <div id="leftdiv">
+            <sub-card-a title="[[title_aa]]"></sub-card-a>
+            <sub-card-a title="[[title_ab]]"></sub-card-a>
+            <sub-card-a title="[[title_ac]]"></sub-card-a>
+            <paper-input label="submission 1" value="{{title_aa}}"></paper-input>
+            <paper-input label="submission 2" value="{{title_ab}}"></paper-input>
+            <paper-input label="submission 3" value="{{title_ac}}"></paper-input>
+          </div>
+
+          <div id="rightdiv">
+            <sub-card-b title="[[title_ba]]"></sub-card-b>
+            <sub-card-b title="[[title_bb]]"></sub-card-b>
+            <sub-card-b title="[[title_bc]]"></sub-card-b>
+            <paper-input label="submission 1" value="{{title_ba}}"></paper-input>
+            <paper-input label="submission 2" value="{{title_bb}}"></paper-input>
+            <paper-input label="submission 3" value="{{title_bc}}"></paper-input>
+          </div>
+        </div>
+        <br class="clear">
       </div>
-
-      <div id="rightdiv">
-        <sub-card-b title="[[title_ba]]"></sub-card-b>
-        <sub-card-b title="[[title_bb]]"></sub-card-b>
-        <sub-card-b title="[[title_bc]]"></sub-card-b>
-        <paper-input label="submission 1" value="{{title_ba}}"></paper-input>
-        <paper-input label="submission 2" value="{{title_bb}}"></paper-input>
-        <paper-input label="submission 3" value="{{title_bc}}"></paper-input>
+      <div id="mainrightdiv">
+        <h1> How to use </h1>
+        <ul>
+          <li> Each player submits 3 options in the input boxes below </li>
+          <li> The button text will populate with your inputs </li>
+          <li> Player <span class="pink">A</span> eliminates one of Player <span class="cyan">B</span>'s options by tapping the button </li>
+          <li> Player <span class="cyan">B</span> eliminates one of Player <span class="pink">A</span>'s options by tapping the button </li>
+          <li> Player <span class="pink">A</span> eliminates one of their own options by tapping the button </li>
+          <li> Player <span class="cyan">B</span> eliminates one of their own options by tapping the button </li>
+          <li> Player <span class="pink">A</span> and <span class="cyan">B</span> decide between the last two options together </li>
+        </ul>
       </div>
-
+      <br class="clear">
     </div>
-    <br class="clear">
 
   </template>
 
@@ -100,6 +142,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true,
           value: "E.T."
         }
+      },
+      onload: function() {
+        console.log("MY VIEW1 LOADED");
       }
     });
   </script>

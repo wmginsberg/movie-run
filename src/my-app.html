@@ -21,6 +21,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="my-view1.html">
+
 
 <dom-module id="my-app">
   <template>
@@ -105,6 +107,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         '_routePageChanged(routeData.page)',
       ],
 
+      onload: function() {
+        console.log("MY APP LOADED");
+      },
+
       _routePageChanged: function(page) {
         this.page = page || 'view1';
 
@@ -123,5 +129,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.page = 'view404';
       },
     });
+
   </script>
 </dom-module>
