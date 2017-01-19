@@ -69,7 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div id="mainpanel">
-      <h1 id="room_id_h1"></h1>
       <div id="mainleftdiv">
         <div id="panel">
 
@@ -104,6 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <li> Player <span class="cyan">B</span> eliminates one of their own options by tapping the button </li>
           <li> Player <span class="pink">A</span> and <span class="cyan">B</span> decide between the last two options together </li>
         </ul>
+        
       </div>
       <br class="clear">
     </div>
@@ -116,11 +116,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'my-view1',
       properties: {
+        page: {
+          type: String,
+          value: this.path
+        },
         room_id: {
           type: String,
           value: "",
-          notify: true,
-          observer: '_updateRoomId'
+          notify: true
         },
         path: {
           type: String,
@@ -164,9 +167,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_titleChanged_bc'
         }
       },
-      onload: function() {
-        console.log("MY VIEW1 LOADED");
-      },
       _titleChanged_aa: function() {
         var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
           title_aa: this.title_aa
@@ -196,11 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
           title_bc: this.title_bc
         });
-      },
-      _updateRoomId: function() {
-        this.$.room_id_h1 = this.room_id;
       }
-      
 
 
     });
