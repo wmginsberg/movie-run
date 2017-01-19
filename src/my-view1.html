@@ -108,6 +108,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <br class="clear">
     </div>
 
+    <firebase-query
+        id="query"
+        app-name="ginsberg-method"
+        path="/runs/[[roomid]]"
+        data="{{data}}">
+    </firebase-query>
+
     <firebase-document id="firebaseDoc" path="[[path]]" title_aa="{{title_aa}}" title_ab="{{title_ab}}" title_ac="{{title_ac}}" title_ba="{{title_ba}}" title_bb="{{title_bb}}" title_bc="{{title_bc}}" ></firebase-document>
 
   </template>
@@ -120,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: this.path
         },
-        room_id: {
+        roomid: {
           type: String,
           value: "",
           notify: true
@@ -128,7 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         path: {
           type: String,
           notify: true,
-          value: "/runs/" + this.room_id
+          value: "/runs/" + this.roomid
         },
         title_aa: {
           type: String,
@@ -168,32 +175,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       _titleChanged_aa: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_aa: this.title_aa
         });
       },
       _titleChanged_ab: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_ab: this.title_ab
         });
       },
       _titleChanged_ac: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_ac: this.title_ac
         });
       },
       _titleChanged_ba: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_ba: this.title_ba
         });
       },
       _titleChanged_bb: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_bb: this.title_bb
         });
       },
       _titleChanged_bc: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
           title_bc: this.title_bc
         });
       }

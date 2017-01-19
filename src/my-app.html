@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: bold;
       }
 
-      #room_id_h1 {
+      #roomid_h1 {
         text-align: center;
         font-size: 18px;
       }
@@ -115,12 +115,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 room_id="[[room_id]]" name="view1"></my-view1>
+          <my-view1 roomid="{{roomid}}" name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
-        <h1 id="room_id_h1">room id: {{room_id}}</h1>
+        <h1 id="roomid_h1">room id: {{roomid}}</h1>
       </app-header-layout>
     </app-drawer-layout>
   </template>
@@ -135,11 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true,
           observer: '_pageChanged',
         },
-        room_id: {
-          type: String,
-          value: "",
-          notify: true
-        }
+        roomid: String
       },
 
       observers: [
@@ -179,8 +175,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           title_bc: "E.T."
         });
         console.log("room code: " + id);
-        this.room_id = id;
-        console.log("room_id code: " + this.room_id);
+        this.roomid = id;
+        console.log("roomid code: " + this.roomid);
         this.disappearButton();
       },
       disappearButton: function() {
@@ -200,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var id = prompt("What is the id of the room you wish to join?");
         if (id != null && id.length == 20) {
           console.log("valid and changed");
-          this.room_id = id;          
+          this.roomid = id;          
         }
       }
     });
