@@ -8,11 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="sub-card-a.html">
 <link rel="import" href="sub-card-b.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 
 <dom-module id="my-view1">
   <template>
@@ -68,6 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div id="mainpanel">
+      <h1 id="room_id_h1"></h1>
       <div id="mainleftdiv">
         <div id="panel">
 
@@ -106,46 +108,101 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <br class="clear">
     </div>
 
+    <firebase-document id="firebaseDoc" path="[[path]]" title_aa="{{title_aa}}" title_ab="{{title_ab}}" title_ac="{{title_ac}}" title_ba="{{title_ba}}" title_bb="{{title_bb}}" title_bc="{{title_bc}}" ></firebase-document>
+
   </template>
 
   <script>
     Polymer({
       is: 'my-view1',
       properties: {
+        room_id: {
+          type: String,
+          value: "",
+          notify: true,
+          observer: '_updateRoomId'
+        },
+        path: {
+          type: String,
+          notify: true,
+          value: "/runs/" + this.room_id
+        },
         title_aa: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_aa'
         },
         title_ab: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_ab'
         },
         title_ac: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_ac'
         },
         title_ba: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_ba'
         },
         title_bb: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_bb'
         },
         title_bc: {
           type: String,
           notify: true,
-          value: "E.T."
+          value: "E.T.",
+          observer: '_titleChanged_bc'
         }
       },
       onload: function() {
         console.log("MY VIEW1 LOADED");
+      },
+      _titleChanged_aa: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_aa: this.title_aa
+        });
+      },
+      _titleChanged_ab: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_ab: this.title_ab
+        });
+      },
+      _titleChanged_ac: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_ac: this.title_ac
+        });
+      },
+      _titleChanged_ba: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_ba: this.title_ba
+        });
+      },
+      _titleChanged_bb: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_bb: this.title_bb
+        });
+      },
+      _titleChanged_bc: function() {
+        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.room_id).update({
+          title_bc: this.title_bc
+        });
+      },
+      _updateRoomId: function() {
+        this.$.room_id_h1 = this.room_id;
       }
+      
+
+
     });
   </script>
 </dom-module>

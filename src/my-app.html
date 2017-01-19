@@ -7,8 +7,6 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
-<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -20,6 +18,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="my-view1.html">
 
@@ -66,6 +67,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
+    
+    <firebase-app
+        name="ginsberg-method"
+        api-key="AIzaSyCPQecb0L92A-go-lx5kyQmeEeLF9KIsXo"
+        auth-domain="ginsberg-method.firebaseapp.com"
+        database-url="https://ginsberg-method.firebaseio.com"
+        storage-bucket="ginsberg-method.appspot.com"
+        messaging-sender-id="452567208034">
+    </firebase-app>
 
     <app-drawer-layout fullbleed>
       <!-- Main content -->
@@ -77,12 +87,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </app-toolbar>
         </app-header>
 
+       
+        <firebase-document id="firebaseDoc" path="/runs/"></firebase-document>
+
+        <div id="gameStarter">
+          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"">
+             <a href="/view1" name="view1"><paper-button on-tap="makeRun" raised> MAKE A RUN </paper-button></a>
+          </iron-selector>
+        </div>
+
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
+          <my-view1 room_id="[[room_id]]" name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
           <my-view404 name="view404"></my-view404>
@@ -101,6 +120,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true,
           observer: '_pageChanged',
         },
+        room_id: {
+          type: String,
+          value: "",
+          notify: true
+        }
       },
 
       observers: [
@@ -112,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _routePageChanged: function(page) {
-        this.page = page || 'view1';
+        this.page = page || 'view2';
 
         // if (!this.$.drawer.persistent) {
         //   this.$.drawer.close();
@@ -128,6 +152,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _showPage404: function() {
         this.page = 'view404';
       },
+      makeRun: function() {
+        var id = this.makeRandomId();
+        // insert into database
+        var reminderRef = firebase.app('ginsberg-method').database().ref('/runs/' + id).update({
+          title_aa: "E.T.", 
+          title_ab: "E.T.", 
+          title_ac: "E.T.",
+          title_ba: "E.T.",
+          title_bb: "E.T.",
+          title_bc: "E.T."
+        });
+        console.log("room code: " + id);
+        this.disappearButton();
+      },
+      disappearButton: function() {
+        this.customStyle['display'] = 'none';
+        this.updateStyles();
+      },
+      makeRandomId: function() {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for( var i=0; i < 20; i++ )
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
+      }
     });
 
   </script>

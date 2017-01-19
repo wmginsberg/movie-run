@@ -8,12 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="sub-card-a.html">
 <link rel="import" href="sub-card-b.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
 
 <dom-module id="my-view2">
   <template>
@@ -79,8 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="mainpanel">
       <div id="mainleftdiv">
         <div id="panel">
-
-          <a href="/view1"><paper-button on-tap="makeRun" raised> MAKE A RUN </paper-button></a>
+          <firebase-document id="firebaseDoc" path="/runs/"></firebase-document>
           
         </div>
         <br class="clear">
@@ -106,13 +105,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'my-view2',
       properties: {
-  
+        path: {
+          type: String,
+          value: "",
+          notify: true
+        }
       },
       makeRun: function() {
         var id = this.makeRandomId();
-        console.log(id);
+        this.path =  id;
         // insert into database
+        var reminderRef = firebase.app('ginsberg-method').database().ref('/runs/' + id).update({
+          title_aa: "E.T.", 
+          title_ab: "E.T.", 
+          title_ac: "E.T.",
+          title_ba: "E.T.",
+          title_bb: "E.T.",
+          title_bc: "E.T."
+        });
+        console.log(this.path);
       },
+
       makeRandomId: function() {
           var text = "";
           var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

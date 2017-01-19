@@ -1,0 +1,14 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.2.1
+[debug] Platform:     darwin
+[debug] Node Version: v6.4.0
+[debug] Time:         Thu Jan 19 2017 12:02:16 GMT-0800 (PST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/wmginsberg/Desktop/projects/movie-run
+[info] Public Directory: build/bundled
+[info] 
+[info] Server listening at: http://localhost:5000
