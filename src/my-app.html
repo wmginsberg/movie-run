@@ -167,12 +167,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var id = this.makeRandomId();
         // insert into database
         var reminderRef = firebase.app('ginsberg-method').database().ref('/runs/' + id).update({
-          title_aa: "E.T.", 
-          title_ab: "E.T.", 
-          title_ac: "E.T.",
-          title_ba: "E.T.",
-          title_bb: "E.T.",
-          title_bc: "E.T."
+          title_aa: "", 
+          title_ab: "", 
+          title_ac: "",
+          title_ba: "",
+          title_bb: "",
+          title_bc: ""
         });
         console.log("room code: " + id);
         this.roomid = id;

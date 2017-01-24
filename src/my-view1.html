@@ -71,20 +71,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="mainpanel">
       <div id="mainleftdiv">
         <div id="panel">
-
+          <firebase-query
+              id="query"
+              app-name="ginsberg-method"
+              path="/runs/[[roomid]]"
+              data="{{titles}}">
+          </firebase-query>
           <div id="leftdiv">
-            <sub-card-a title="[[title_aa]]"></sub-card-a>
-            <sub-card-a title="[[title_ab]]"></sub-card-a>
-            <sub-card-a title="[[title_ac]]"></sub-card-a>
+            <sub-card-a title="{{title_aa}}"></sub-card-a>
+            <sub-card-a title="{{title_ab}}"></sub-card-a>
+            <sub-card-a title="{{title_ac}}"></sub-card-a>
             <paper-input label="submission 1" value="{{title_aa}}"></paper-input>
             <paper-input label="submission 2" value="{{title_ab}}"></paper-input>
             <paper-input label="submission 3" value="{{title_ac}}"></paper-input>
           </div>
 
           <div id="rightdiv">
-            <sub-card-b title="[[title_ba]]"></sub-card-b>
-            <sub-card-b title="[[title_bb]]"></sub-card-b>
-            <sub-card-b title="[[title_bc]]"></sub-card-b>
+            <sub-card-b title="{{title_ba}}"></sub-card-b>
+            <sub-card-b title="{{title_bb}}"></sub-card-b>
+            <sub-card-b title="{{title_bc}}"></sub-card-b>
             <paper-input label="submission 1" value="{{title_ba}}"></paper-input>
             <paper-input label="submission 2" value="{{title_bb}}"></paper-input>
             <paper-input label="submission 3" value="{{title_bc}}"></paper-input>
@@ -107,13 +112,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <br class="clear">
     </div>
-
-    <firebase-query
-        id="query"
-        app-name="ginsberg-method"
-        path="/runs/[[roomid]]"
-        data="{{data}}">
-    </firebase-query>
+    <paper-button id="reveal" on-tap="revealAnswers" raised>REVEAL ANSWERS</paper-button>
 
     <firebase-document id="firebaseDoc" path="[[path]]" title_aa="{{title_aa}}" title_ab="{{title_ab}}" title_ac="{{title_ac}}" title_ba="{{title_ba}}" title_bb="{{title_bb}}" title_bc="{{title_bc}}" ></firebase-document>
 
@@ -123,6 +122,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'my-view1',
       properties: {
+        titles: {
+          tyle: Object
+        },
         page: {
           type: String,
           value: this.path
@@ -140,42 +142,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         title_aa: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_aa'
         },
         title_ab: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_ab'
         },
         title_ac: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_ac'
         },
         title_ba: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_ba'
         },
         title_bb: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_bb'
         },
         title_bc: {
           type: String,
           notify: true,
-          value: "E.T.",
+          value: "",
           observer: '_titleChanged_bc'
         }
       },
+      revealAnswers: function() {
+        // fill the boxes
+        //while (this.roomid = "") {
+          console.log("roomid " + this.roomid);
+          firebase.app('ginsberg-method').database().ref('/runs/' + this.roomid).once('value').then(function(snapshot) {
+            console.log(snapshot.val());
+            this.title_aa = snapshot.val().title_aa; 
+            this.title_ab = snapshot.val().title_ab; 
+            this.title_ac = snapshot.val().title_ac;
+            this.title_ba = snapshot.val().title_ba;
+            this.title_bb = snapshot.val().title_bb;
+            this.title_bc = snapshot.val().title_bc;
+          });
+        //}
+      },
       _titleChanged_aa: function() {
-        var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update({
+       var reminderRef = firebase.app('ginsberg-method').database().ref("/runs/" + this.roomid).update(
+          {
           title_aa: this.title_aa
         });
       },
