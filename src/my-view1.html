@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
 
 <dom-module id="my-view1">
   <template>
@@ -113,8 +115,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <br class="clear">
     </div>
     <paper-button id="reveal" on-tap="revealAnswers" raised>REVEAL ANSWERS</paper-button>
-
-    <firebase-document id="firebaseDoc" path="[[path]]" title_aa="{{title_aa}}" title_ab="{{title_ab}}" title_ac="{{title_ac}}" title_ba="{{title_ba}}" title_bb="{{title_bb}}" title_bc="{{title_bc}}" ></firebase-document>
+    <app-location route="{{route}}"></app-location>
+        <app-route
+            route="{{route}}"
+            pattern="/:roomid"
+            data="{{routeData}}"
+            tail="{{subroute}}"></app-route>
+    <firebase-document id="firebaseDoc" path="/runs/[[roomid]]" title_aa="{{title_aa}}" title_ab="{{title_ab}}" title_ac="{{title_ac}}" title_ba="{{title_ba}}" title_bb="{{title_bb}}" title_bc="{{title_bc}}" ></firebase-document>
 
   </template>
 
