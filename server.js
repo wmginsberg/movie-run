@@ -81,37 +81,8 @@ var insertMessage = 'INSERT INTO messages(room, nickname, body, time) VALUES($1,
    ========================================================================== */
 
 app.get('/', function(req, resp) {
-	// console.log('- Request received:', req.method.cyan, req.url.underline);
-	
-	// //TODO: maybe someday we can have users sign in here 
-	// //      and give them a session cookie
-
-	// //create new Table for messages and rooms:
-	// conn.query(createRoomsTable)
-	// 	.on('error', function() {
-	// 		console.log("ERROR: rooms table could not be created!!".error);
-	// 	});
-	// conn.query(createMessagesTable)
-	// 	.on('error', function() {
-	// 		console.log("ERROR: messages table could not be created!!".error);
-	// 	});
 	resp.send('index.html');
 });
-
-// app.get('/recentRooms.json', function(req, resp) {
-// 	console.log('- Request received:', req.method.cyan, req.url.underline);
-// 	var data = {recentRooms: []};
-// 	//get all recently active rooms:
-// 	var q = conn.query(getRecentRooms);
-// 	q.on('row', function(row) {
-// 		console.log("The returned row object:", row);
-// 		data.recentRooms.push(row.room);
-// 	});
-// 	q.on('end', function() {
-// 		console.log('Finished searching for recent rooms'.cyan);
-// 		resp.json(data);
-// 	});
-// });
 
 
 var roomId = ""; 
@@ -122,32 +93,19 @@ app.get('/:roomName', function(req, resp) {
 	var exists = false;
 	//check if the room exists
 	firebase.database().ref('/runs/').once('value').then(function(data) {
+	   resp.sendFile('index.html', {root: "."});
 	   var obj = data.val();
 	   for (var room in obj) {
-	   		
 	   		if (room == req.params.roomName) {
 	   			console.log("room: " + room + "     roomId: " + req.params.roomName);
-	   			//var location = '/runs/' + req.params.roomName;
-	   			//resp.sendFile("src/my-view1.html");
-	   			console.log("dir name  " + __dirname)
-	   			resp.sendFile('index.html');
-	   			//firebase.database.ref().remove(location);
+	   			console.log("dir " + __dirname);
+	   			console.log("room.title_aa " + obj[room]);
+	   			//resp.sendFile('my-view2.html', {root: "./src"});
 	   		}
 	   }
 
 	});
 
-
-	// firebase.database().ref('/runs/' + req.params.roomName).update({
- //      title_aa: "", 
- //      title_ab: "", 
- //      title_ac: "",
- //      title_ba: "",
- //      title_bb: "",
- //      title_bc: ""
-	// });
-
-//	resp.redirect('/:roomName');
 });
 
 
