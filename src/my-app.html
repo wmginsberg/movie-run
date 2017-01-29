@@ -118,7 +118,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 roomid="{{roomid}}" name="view1"></my-view1>
+          <my-view1 id="view1" roomid="{{roomid}}" name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
           <my-view404 name="view404"></my-view404>
@@ -151,6 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
        _pageChanged: function(page) {
         if (page.length == 20) {
+          this.$.view1.name = page; 
           this.importHref(
           this.resolveUrl('my-view1.html'), null, this._showPage404, true);
         }
@@ -180,6 +181,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log("roomid code: " + this.roomid);
         this.disappearButton();
         this.$.makeRunButton.href = "/" + id;
+        this.$.view1.name = id; 
       },
       disappearButton: function() {
         this.$.gameStarter.className = "invisible";
