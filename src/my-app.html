@@ -72,6 +72,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-bottom: 15px;
         margin-right: 5px;
       }
+      .invisible {
+        display: none;
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -104,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <firebase-document id="firebaseDoc" path="/runs/"></firebase-document>
 
         <div id="gameStarter">
-          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"">
+          <iron-selector selected="[[page]]" attr-for-selected="href" class="drawer-list" role="navigation"">
              <a href="#" id="makeRunButton" name="view1"><paper-button on-tap="makeRun" raised> MAKE A RUN </paper-button></a>
              <!-- <a href="/view1" name="view1"><paper-button on-tap="joinRun" raised> JOIN A RUN </paper-button></a> -->
           </iron-selector>
@@ -132,7 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         page: {
           type: String,
-          reflectToAttribute: true,
+          reflectToAttribute: false,
           observer: '_pageChanged',
         },
         roomid: String
@@ -142,33 +145,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         '_routePageChanged(routeData.page)',
       ],
 
-      onload: function() {
-        console.log("MY APP LOADED");
-      },
-
       _routePageChanged: function(page) {
         this.page = page || 'view2';
-
-        // if (!this.$.drawer.persistent) {
-        //   this.$.drawer.close();
-        // }
       },
 
-      _pageChanged: function(page) {
-        // Load page import on demand. Show 404 page if fails
-        if (page == 'view2' || page == 'view1') {
-          var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-          this.importHref(resolvedPageUrl, null, this._showPage404, true);
+       _pageChanged: function(page) {
+        if (page.length == 20) {
+          this.importHref(
+          this.resolveUrl('my-view1.html'), null, this._showPage404, true);
         }
-        else if (page.length == 20) {
-          console.log("20!!!");
-          var resolvedPageUrl = this.resolveUrl('my-view1.html');
-          console.log(resolvedPageUrl);
-          this.importHref(resolvedPageUrl, null, this._showPage404, true);
-        }
+        // error handling here does not work with firebase rewrites.
         else {
-          var resolvedPageUrl = this.resolveUrl('my-'+page+'.html');
-          this.importHref(resolvedPageUrl, null, this._showPage404, true);
+          this.importHref(
+            this.resolveUrl('my-' + page + '.html'), null, this._showPage404, true);
         }
       },
 
@@ -193,7 +182,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.makeRunButton.href = "/" + id;
       },
       disappearButton: function() {
-        this.$.gameStarter.display = "none";
+        this.$.gameStarter.className = "invisible";
       },
       makeRandomId: function() {
           var text = "";

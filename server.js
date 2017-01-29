@@ -99,7 +99,7 @@ app.get('/:roomName', function(req, resp) {
 	   		if (room == req.params.roomName) {
 	   			console.log("room: " + room + "     roomId: " + req.params.roomName);
 	   			console.log("dir " + __dirname);
-	   			console.log("room.title_aa " + obj[room]);
+	   			console.log("room.title_aa " + obj[room].title_aa);
 	   			//resp.sendFile('my-view2.html', {root: "./src"});
 	   		}
 	   }
